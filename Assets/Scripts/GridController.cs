@@ -45,14 +45,23 @@ public class GridController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            if(!towers.ContainsKey(coordinate))
+            if (!towers.ContainsKey(coordinate))
             {
-                towers.Add(coordinate, Instantiate(baseTower));
-                Debug.Log("test");
-                Debug.Log(coordinate);
+                if (t)
+                {
+                    towers.Add(coordinate, Instantiate(baseTower, GetWorldCoordinate(coordinate), new Quaternion(0, 0, 0, 0)));
+                }
             }
+        }
 
-            
+        if (Input.GetMouseButton(1))
+        {
+            if (towers.ContainsKey(coordinate))
+            {
+                GameObject tow = null;
+                towers.Remove(coordinate, out tow);
+                Destroy(tow);
+            }
         }
     }
 
@@ -60,5 +69,10 @@ public class GridController : MonoBehaviour
     {
         Vector3Int coordinate = grid.WorldToCell(position);
         return new Vector3Int(coordinate.x, coordinate.y, 0);
+    }
+
+    private Vector3 GetWorldCoordinate(Vector3Int position)
+    {
+        return grid.CellToWorld(position);
     }
 }
