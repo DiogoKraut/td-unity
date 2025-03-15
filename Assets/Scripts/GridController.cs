@@ -11,6 +11,8 @@ public class GridController : MonoBehaviour
     [SerializeField] private Tilemap interactiveTilemap;
     [SerializeField] private TileBase hoverTile;
     [SerializeField] private GameObject baseTower;
+    [SerializeField] private GameObject spawner;
+    [SerializeField] private GameObject end;
 
     private Grid grid;
     private Vector3Int currentTilePos = new Vector3Int(0, 0, 0);
@@ -45,11 +47,12 @@ public class GridController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+
             if (!towers.ContainsKey(coordinate))
             {
                 if (t)
                 {
-                    towers.Add(coordinate, Instantiate(baseTower, GetWorldCoordinate(coordinate), new Quaternion(0, 0, 0, 0)));
+                    towers.Add(coordinate, Instantiate(baseTower, GetWorldCoordinate(coordinate), Quaternion.identity));
                 }
             }
         }
@@ -73,6 +76,6 @@ public class GridController : MonoBehaviour
 
     private Vector3 GetWorldCoordinate(Vector3Int position)
     {
-        return grid.CellToWorld(position);
+        return grid.GetCellCenterWorld(position);
     }
 }

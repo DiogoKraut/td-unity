@@ -9,7 +9,8 @@ public class Tower : MonoBehaviour
 
     void Start()
     {
-        
+        Grid grid = GameObject.Find("Grid").GetComponent<Grid>();
+        gridPos = grid.WorldToCell(transform.position);
     }
 
     void Update()
