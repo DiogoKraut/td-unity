@@ -20,6 +20,7 @@ public class PathController : MonoBehaviour
     private List<Vector3Int> GetPathOrder(Vector3Int startTile)
     {
         List<Vector3Int> pathTiles = new List<Vector3Int>();
+        pathTiles.Add(startTile);
         Vector3Int currentTile = startTile;
         while (currentTile != null)
         {
@@ -50,7 +51,6 @@ public class PathController : MonoBehaviour
             if (tile == pos) return false;
         }
 
-        Debug.Log("added" + pos);
         pathTiles.Add(pos);
         return true;
     }

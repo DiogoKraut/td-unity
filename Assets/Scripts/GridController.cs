@@ -3,16 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.Tilemaps;
 
 public class GridController : MonoBehaviour
 {
     [SerializeField] private Tilemap tilemap;
     [SerializeField] private Tilemap interactiveTilemap;
+    [SerializeField] private Tilemap pathMap;
     [SerializeField] private TileBase hoverTile;
     [SerializeField] private GameObject baseTower;
-    [SerializeField] private GameObject spawner;
-    [SerializeField] private GameObject end;
 
     private Grid grid;
     private Vector3Int currentTilePos = new Vector3Int(0, 0, 0);
@@ -47,12 +47,11 @@ public class GridController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-
-            if (!towers.ContainsKey(coordinate))
+            if (!pathMap.GetTile(coordinate))
             {
-                if (t)
+                if (!towers.ContainsKey(coordinate) && t)
                 {
-                    towers.Add(coordinate, Instantiate(baseTower, GetWorldCoordinate(coordinate), Quaternion.identity));
+                        towers.Add(coordinate, Instantiate(baseTower, GetWorldCoordinate(coordinate), Quaternion.identity));
                 }
             }
         }
