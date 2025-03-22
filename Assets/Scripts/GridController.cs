@@ -16,7 +16,7 @@ public class GridController : MonoBehaviour
 
     private Grid grid;
     private Vector3Int currentTilePos = new Vector3Int(0, 0, 0);
-    private Dictionary<Vector3Int, GameObject> towers = new Dictionary<Vector3Int, GameObject>();
+    private Dictionary<Vector3Int, BaseTower> towers = new Dictionary<Vector3Int, BaseTower>();
     void Start()
     {
         grid = GetComponent<Grid>();
@@ -47,11 +47,20 @@ public class GridController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+            if (towers.ContainsKey(coordinate) && t)
+            {
+                towers[coordinate].range.GetRange(coordinate);
+            }
+        }
+
+        if (Input.GetMouseButtonDown(2))
+        {
             if (!pathMap.GetTile(coordinate))
             {
                 if (!towers.ContainsKey(coordinate) && t)
                 {
-                        towers.Add(coordinate, Instantiate(baseTower, GetWorldCoordinate(coordinate), Quaternion.identity));
+                    GameObject tow = Instantiate(baseTower, GetWorldCoordinate(coordinate), Quaternion.identity);
+                    towers.Add(coordinate, tow.GetComponent<BaseTower>());
                 }
             }
         }
@@ -60,9 +69,9 @@ public class GridController : MonoBehaviour
         {
             if (towers.ContainsKey(coordinate))
             {
-                GameObject tow = null;
+                BaseTower tow = null;
                 towers.Remove(coordinate, out tow);
-                Destroy(tow);
+                Destroy(tow.gameObject);
             }
         }
     }

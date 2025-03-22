@@ -11,7 +11,6 @@ public class BaseEnemy : MonoBehaviour
     List<Vector3Int> path;
     private Grid grid;
     private int nextPos = 0;
-    private float time = 0;
     private float cellDistance;
     private float startTime;
     void Start()
