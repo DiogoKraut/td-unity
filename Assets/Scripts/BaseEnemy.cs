@@ -15,8 +15,8 @@ public class BaseEnemy : MonoBehaviour
     private float startTime;
     void Start()
     {
-        grid = GameObject.FindObjectOfType<Grid>();
-        path = GameObject.FindObjectOfType<PathController>().path;
+        grid = GameObject.FindAnyObjectByType<Grid>();
+        path = GameObject.FindAnyObjectByType<PathController>().path;
         cellDistance = Vector3.Distance(path[0], path[1]);
         startTime = Time.time;
     }
