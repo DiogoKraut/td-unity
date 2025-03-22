@@ -13,6 +13,7 @@ public class BaseEnemy : MonoBehaviour
     private int nextPos = 0;
     private float cellDistance;
     private float startTime;
+    public Vector3Int gridPos;
     void Start()
     {
         grid = GameObject.FindAnyObjectByType<Grid>();
@@ -23,6 +24,8 @@ public class BaseEnemy : MonoBehaviour
 
     void Update()
     {
+        // update current gridPos
+        gridPos = grid.WorldToCell(this.transform.position);
         if (nextPos >= path.Count)
         {
             Destroy(this.gameObject);
@@ -39,5 +42,9 @@ public class BaseEnemy : MonoBehaviour
             nextPos += 1;
             startTime = Time.time;
         }
+    }
+
+    void OnDestroy() {
+        GameObject.FindAnyObjectByType<EnemySpawner>()?.RemoveMember(this);        
     }
 }

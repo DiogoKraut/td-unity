@@ -1,25 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class EnemySpawner : MonoBehaviour
-{
-    [SerializeField] GameObject enemyPrefab; 
-    [SerializeField] Tilemap path; 
+public class EnemySpawner : MonoBehaviour {
+    [SerializeField] GameObject enemyPrefab;
+    [SerializeField] Tilemap path;
 
-    private List<GameObject> enemies = new List<GameObject>();
+    public List<BaseEnemy> enemies = new List<BaseEnemy>();
     Grid grid;
-    void Start()
-    {
+
+    private float delay = 0.25F;
+    private float elapsed = 0;
+    private Vector3Int gridPos;
+    void Start() {
         grid = GetComponentInParent<Grid>();
-        Vector3Int gridPos = grid.WorldToCell(transform.position);
+        gridPos = grid.WorldToCell(transform.position);
         GameObject o = Instantiate(enemyPrefab, grid.GetCellCenterWorld(gridPos), Quaternion.identity);
-        enemies.Add(o);
+        enemies.Add(o.GetComponent<BaseEnemy>());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    void Update() {
+        if (elapsed >= delay) {
+            GameObject o = Instantiate(enemyPrefab, grid.GetCellCenterWorld(gridPos), Quaternion.identity);
+            enemies.Add(o.GetComponent<BaseEnemy>());
+            elapsed = 0;
+        }
+        elapsed += Time.deltaTime;
+
+    }
+
+    public void RemoveMember(BaseEnemy enemy) {
+        enemies.Remove(enemy);
     }
 }

@@ -153,7 +153,7 @@ MonoBehaviour:
   interactiveTilemap: {fileID: 1160452454}
   pathMap: {fileID: 890694976}
   hoverTile: {fileID: 11400000, guid: 547b6ca27d7d7e64fb0e039ed1146a3c, type: 2}
-  baseTower: {fileID: 8838247913287393246, guid: ec307420e23b77f4cabb3a0e90893761, type: 3}
+  baseTower: {fileID: 6685828810463638951, guid: a5d73dde9a111234e84451a077490bf8, type: 3}
 --- !u!156049354 &30149558
 Grid:
   m_ObjectHideFlags: 0
@@ -288,7 +288,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0
   far clip plane: 1000
   field of view: 34
   orthographic: 1
@@ -4474,6 +4474,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 6832040406130106411, guid: ad15862ce6957af498b9c268e1a45fa1, type: 3}
   path: {fileID: 890694976}
+  enemies: []
 --- !u!1 &2055085728
 GameObject:
   m_ObjectHideFlags: 0
